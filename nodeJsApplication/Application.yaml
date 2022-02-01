@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: snote
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: snote
+  template:
+    metadata:
+      labels:
+        app: snote
+    spec:
+      
+      containers:
+        - name: snote
+          image: harshabommi/snote
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGO_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: snote
+                  key: MONGO_URL
+          livenessProbe:
+              httpGet:
+                port: 3000
+                path: /
+              initialDelaySeconds: 60
+              periodSeconds: 10
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+            limits:
+              cpu: "900m"
+              memory: "900Mi"

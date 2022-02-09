@@ -1,0 +1,27 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata:
+  name: application-cpu
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: application-cpu 
+  template:
+    metadata:
+      labels:
+        app: application-cpu
+    spec:
+      containers:
+        - name: application-cpu
+          image: harshabommi/application-cpu
+          imagePullPolicy: Always 
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
+            limits:
+              cpu: "200m"
+              memory: "200Mi"

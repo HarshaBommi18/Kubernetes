@@ -25,14 +25,15 @@ nodes:
 
 14. kind create cluster --name harsha --config kind.yml
 
-15. kubectport-forward svc/jenkins-master-service 8080:80 --address 0.0.0.0
-
-or kubectl port-forward pod/jenkins-7cd98f5f86-qbl5j 8080 --address 0.0.0.0 -n jenkins
+15. kubectl create ns jenkins
 
 16. kubectl apply -n jenkins -f rbac.yml
 
 17. kubectl apply -n jenkins -f deploy.yml
 18. kubectl apply -n jenkins -f svc.yml
+19.  kubectport-forward svc/jenkins-master-service 8080:80 --address 0.0.0.0
+
+or kubectl port-forward pod/jenkins-7cd98f5f86-qbl5j 8080 --address 0.0.0.0 -n jenkins
 
 19. Now open the jenkins in the browser Ex: http://<ip>:8080 and configure the admin user settins
 
